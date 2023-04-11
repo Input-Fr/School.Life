@@ -10,7 +10,8 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     [SerializeField] private Transform spawnedObjectPrefab;
    
     private void Update() {
-        if (!IsOwner || !IsHost) return ;
+        if (!IsOwner || !IsHost) return;
+        
         Vector3[] li = {new Vector3(-10,5,-0),new Vector3(10,5,0)};
 
         Vector3 randomPos = li[Random.Range(0,2)];
