@@ -8,6 +8,7 @@ TagManager:
   - LevelBat
   - Locked
   - Item
+  - Unlocked
   layers:
   - Default
   - TransparentFX

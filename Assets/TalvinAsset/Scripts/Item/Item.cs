@@ -1,9 +1,9 @@
 using Inventory;
 using UnityEngine;
-
+using Unity.Netcode;
 namespace Item
 {
-    public class Item : MonoBehaviour
+    public class Item : NetworkBehaviour
     {
         #region Variables
 
@@ -11,11 +11,15 @@ namespace Item
 
         #endregion
 
+        
+
+
         public void Pickup(InventoryManager inventory)
         {
             if (inventory.AddItem(itemData))
             {
-                Destroy(gameObject);
+                DestroyObjServerRpc();
+                
             }
             else
             {
@@ -23,6 +27,12 @@ namespace Item
             }
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        void DestroyObjServerRpc()
+        {
+            gameObject.GetComponent<NetworkObject>().Despawn();
+            Destroy(gameObject);
+        }
         public void EnableOutline()
         {
             GetComponent<Outline>().enabled = true;

@@ -2,10 +2,10 @@ using Canvas;
 using Inventory;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
-
+using Unity.Netcode;
 namespace User
 {
-    public abstract class Detection : MonoBehaviour
+    public abstract class Detection : NetworkBehaviour
     {
         #region Variables
 
@@ -28,7 +28,6 @@ namespace User
         [HideInInspector] public bool isDetected;
     
         #endregion
-
         protected abstract void Awake();
 
         protected abstract void Update();
@@ -42,5 +41,7 @@ namespace User
         protected abstract void UserInteraction();
 
         protected abstract void HideInformation();
+
+
     }
 }

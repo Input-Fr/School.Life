@@ -1,9 +1,10 @@
 using UnityEngine;
 using User;
-
+using Unity.Netcode;
+using System;
 namespace Item
 {
-    public class ItemsInteraction : Detection
+    public class ItemsInteraction : Detection 
     {
         #region Variables
 
@@ -118,6 +119,7 @@ namespace Item
             }
         }
 
+        
         protected override void HideInformation()
         {
             if ((bool)PreviousObject)
