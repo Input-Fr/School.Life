@@ -40,7 +40,7 @@ public class testRelay : MonoBehaviour
     }
         
     
-
+    
     async void Start()
     {
         // waiting for unity services to respond (await is use to not freeze the whole game while unity services is responding)
@@ -94,6 +94,7 @@ public class testRelay : MonoBehaviour
         NetworkManager.Singleton.StartHost();
         //
         CreateLobby(joinCode);
+
 
         }catch (RelayServiceException error) {
             Debug.Log(error);
@@ -165,7 +166,7 @@ public class testRelay : MonoBehaviour
             input.SetActive(false);
             JoinRelay(currentLobby.Data[keyForRelay].Value);
 
-        }catch (LobbyServiceException e)
+        }catch (LobbyServiceException)
         {
             // turn off : the panel, the buttons and the input
             Panel.SetActive(false);

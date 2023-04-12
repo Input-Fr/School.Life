@@ -19,7 +19,6 @@ namespace Item
             if (inventory.AddItem(itemData))
             {
                 DestroyObjServerRpc();
-                
             }
             else
             {
