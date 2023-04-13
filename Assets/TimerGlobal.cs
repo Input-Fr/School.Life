@@ -8,16 +8,20 @@ public class TimerGlobal : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI textGeneric;
     [SerializeField] private TextMeshProUGUI textTime;
     [SerializeField] private TextMeshProUGUI textEvent;
+    [SerializeField] private GameObject antiCheat;
     bool isNotInPause = false;
     float timeInSecMCQ = 480;
     float timeInSecPause = 60;
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
-    
+    [ServerRpc]
+    void DesactivateDoorServerRpc(bool active)
+    {
+        antiCheat.SetActive(active);
+    }
 
     [ClientRpc]
     void updateClClientRpc(int min,int sec, bool isInPauseorNot)
@@ -55,6 +59,7 @@ public class TimerGlobal : NetworkBehaviour
         else
         {
             isNotInPause = false;
+
         }
 
         if (!isNotInPause)
