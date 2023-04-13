@@ -10,7 +10,6 @@ using Unity.Services.Relay.Models;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using TMPro;
-
 public class testRelay : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -23,6 +22,7 @@ public class testRelay : MonoBehaviour
     [SerializeField]private GameObject ButtonCreate;
     [SerializeField]private GameObject ButtonJoin;
     [SerializeField]private GameObject input;
+    [SerializeField]private GameObject cam;
 
     private Lobby _connectedLobby;
     private QueryResponse _lobbies;
@@ -39,8 +39,7 @@ public class testRelay : MonoBehaviour
 
     }
         
-    
-    
+
     async void Start()
     {
         // waiting for unity services to respond (await is use to not freeze the whole game while unity services is responding)
@@ -52,8 +51,31 @@ public class testRelay : MonoBehaviour
         };
         
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        
+       
+        var lobbyIds = await LobbyService.Instance.GetJoinedLobbiesAsync();
+        Debug.Log(lobbyIds.Count);
+            
+        if (lobbyIds.Count > 0)
+        {
+            for (int i = 0; i < lobbyIds.Count; i++)
+            {
+                var lobby = lobbyIds[i];
+                //Lobby currentLobby = await LobbyService.Instance.ReconnectToLobbyAsync(lobby);
+                string playerId = AuthenticationService.Instance.PlayerId;
+                await LobbyService.Instance.RemovePlayerAsync(lobby,playerId);
+            
+                //Lobby currentLobby = await LobbyService.Instance.GetLobbyAsync(lobby);
+                //JoinRelay(currentLobby.Data[keyForRelay].Value);    
+            }
+                        
+        }
+            
         
     }
+
+ 
     public async void CreateLobby(string code)
     {
         try{
@@ -135,9 +157,20 @@ public class testRelay : MonoBehaviour
             );
 
             NetworkManager.Singleton.StartClient();
+            cam.SetActive(false);
+            Panel.SetActive(false);
+            ButtonCreate.SetActive(false);
+            ButtonJoin.SetActive(false);
+            input.SetActive(false);
         }catch (RelayServiceException error){
 
             Debug.Log(error);
+            
+            Panel.SetActive(true);
+            ButtonCreate.SetActive(true);
+            ButtonJoin.SetActive(true);
+            input.SetActive(true);
+            cam.SetActive(true);
         }
     }
 

@@ -25340,6 +25340,7 @@ MonoBehaviour:
   ButtonCreate: {fileID: 297062915}
   ButtonJoin: {fileID: 934327202}
   input: {fileID: 1488863657}
+  cam: {fileID: 782628375}
 --- !u!4 &1656262770
 Transform:
   m_ObjectHideFlags: 0
