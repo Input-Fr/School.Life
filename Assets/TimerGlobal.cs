@@ -48,11 +48,17 @@ public class TimerGlobal : NetworkBehaviour
             {
                 timeInSecMCQ -= Time.deltaTime;
                 updateClClientRpc(((int)timeInSecMCQ)/60,((int)timeInSecMCQ)%60, isNotInPause);
+                if ((((int)timeInSecMCQ)/60) < 5)
+                {
+                    DesactivateDoorServerRpc(true);
+                }
             }
             else
             {
                 isNotInPause = true;
                 updateClClientRpc(((int)timeInSecMCQ)/60,((int)timeInSecMCQ)%60, isNotInPause);
+                DesactivateDoorServerRpc(false);
+
             }
 
         }
