@@ -23,6 +23,14 @@ public class TimerGlobal : NetworkBehaviour
         antiCheat.SetActive(active);
     }
 
+
+    [ClientRpc]
+    void DesactivateDoorClientRpc(bool active)
+    {
+        antiCheat.GetComponent<Rigidbody>().isKinematic = true;
+        antiCheat.SetActive(active);
+    }
+
     [ClientRpc]
     void updateClClientRpc(int min,int sec, bool isInPauseorNot)
     {
@@ -50,14 +58,17 @@ public class TimerGlobal : NetworkBehaviour
                 updateClClientRpc(((int)timeInSecMCQ)/60,((int)timeInSecMCQ)%60, isNotInPause);
                 if ((((int)timeInSecMCQ)/60) < 5)
                 {
-                    DesactivateDoorServerRpc(true);
+                    DesactivateDoorClientRpc(true);
+                }
+                else{
+                    DesactivateDoorClientRpc(false);
                 }
             }
             else
             {
                 isNotInPause = true;
                 updateClClientRpc(((int)timeInSecMCQ)/60,((int)timeInSecMCQ)%60, isNotInPause);
-                DesactivateDoorServerRpc(false);
+                DesactivateDoorClientRpc(false);
 
             }
 

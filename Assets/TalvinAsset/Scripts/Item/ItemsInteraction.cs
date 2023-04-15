@@ -2,6 +2,8 @@ using UnityEngine;
 using User;
 using Unity.Netcode;
 using System;
+using TMPro;
+using UnityEngine.UI;
 namespace Item
 {
     public class ItemsInteraction : Detection 
@@ -9,7 +11,9 @@ namespace Item
         #region Variables
 
         [SerializeField] private float viewAngle;
-        [SerializeField] private LayerMask environment;
+        [SerializeField] private LayerMask environment;        
+        public GameObject boxDeMesRoubignoles;
+        bool IsClicked = false;
 
         #endregion
     
@@ -30,6 +34,15 @@ namespace Item
         {
             InitialiseVariables();
 
+            if (Input.GetKeyDown(userInputs.interaction))
+            {
+                IsClicked = true;
+            }
+            if (IsClicked && !DetectTarget())
+            {
+                boxDeMesRoubignoles.SetActive(false);
+            }
+
             if (DetectTarget())
             {
                 ShowInformation();
@@ -37,6 +50,7 @@ namespace Item
             }
             else if (!SameObjects)
             {
+                boxDeMesRoubignoles.SetActive(false);
                 HideInformation();
             }
         }
@@ -119,15 +133,21 @@ namespace Item
             }
         }
 
-
-        
         protected override void HideInformation()
         {
             if ((bool)PreviousObject)
             {
-                PreviousObject.GetComponent<Outline>().enabled = false;   
+                PreviousObject.GetComponent<Outline>().enabled = false;
             }
-            text.Hide();
+            try {
+                text.Hide();
+        
+                Debug.Log("I got through here");
+            }catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+            
         }
 
         private Item GetItem()

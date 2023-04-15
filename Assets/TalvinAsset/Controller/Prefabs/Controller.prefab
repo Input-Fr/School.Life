@@ -3726,6 +3726,10 @@ PrefabInstance:
       propertyPath: environment.m_Bits
       value: 136
       objectReference: {fileID: 0}
+    - target: {fileID: 3689616488937610472, guid: 92e5df88c36ea40ab996ac12826e56e3, type: 3}
+      propertyPath: boxDeMesRoubignoles
+      value: 
+      objectReference: {fileID: 7804761448482739420}
     - target: {fileID: 6579034985145147908, guid: 92e5df88c36ea40ab996ac12826e56e3, type: 3}
       propertyPath: text
       value: 
@@ -4518,6 +4522,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7617377506354574131, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7633070957284109788, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4586,6 +4594,10 @@ PrefabInstance:
       propertyPath: dropPoint
       value: 
       objectReference: {fileID: 2035662224}
+    - target: {fileID: 8673180395936816036, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8781824141303025399, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4680,12 +4692,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4503718653129880531, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
   m_PrefabInstance: {fileID: 7245592917717210513}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7804761448482739420}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc6677135505243398455a0b5c234ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7804761448482739420 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 638826637527662925, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+  m_PrefabInstance: {fileID: 7245592917717210513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8601270310399071226 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1427743990164063851, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
