@@ -33,7 +33,6 @@ namespace Item
         protected override void Update()
         {
             InitialiseVariables();
-
             if (Input.GetKeyDown(userInputs.interaction))
             {
                 IsClicked = true;
@@ -42,6 +41,7 @@ namespace Item
             {
                 boxDeMesRoubignoles.SetActive(false);
             }
+            
 
             if (DetectTarget())
             {
@@ -50,7 +50,6 @@ namespace Item
             }
             else if (!SameObjects)
             {
-                boxDeMesRoubignoles.SetActive(false);
                 HideInformation();
             }
         }
@@ -121,6 +120,7 @@ namespace Item
             string header = GetItem().itemData.name;
             string content = $"PICK UP  [{userInputs.interaction}]";
             text.Show(Color.white, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), content, header);
+            
         }
 
         protected override void UserInteraction()
@@ -139,14 +139,7 @@ namespace Item
             {
                 PreviousObject.GetComponent<Outline>().enabled = false;
             }
-            try {
-                text.Hide();
-        
-                Debug.Log("I got through here");
-            }catch (Exception e)
-            {
-                Debug.Log(e);
-            }
+            text.Hide();
             
         }
 
