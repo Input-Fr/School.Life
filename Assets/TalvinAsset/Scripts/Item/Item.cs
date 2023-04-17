@@ -30,8 +30,12 @@ namespace Item
         void DestroyObjServerRpc()
         {
             gameObject.GetComponent<NetworkObject>().Despawn();
-            Destroy(gameObject);
+            //NetworkObject netObject = GetComponent<NetworkObject>();
+            
+           
+            // Destroy(gameObject);
         }
+
         public void EnableOutline()
         {
             GetComponent<Outline>().enabled = true;

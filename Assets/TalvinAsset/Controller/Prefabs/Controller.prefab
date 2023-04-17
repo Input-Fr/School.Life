@@ -3746,6 +3746,10 @@ PrefabInstance:
       propertyPath: mask.m_Bits
       value: 264
       objectReference: {fileID: 0}
+    - target: {fileID: 9141982468713714530, guid: 92e5df88c36ea40ab996ac12826e56e3, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 9141982468713714532, guid: 92e5df88c36ea40ab996ac12826e56e3, type: 3}
       propertyPath: inventory
       value: 

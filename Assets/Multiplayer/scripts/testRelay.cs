@@ -37,7 +37,8 @@ public class testRelay : MonoBehaviour
             _transport = FindObjectsOfType<UnityTransport>()[0];
 
     }
-        
+
+
 
     async void Start()
     {
@@ -65,8 +66,11 @@ public class testRelay : MonoBehaviour
                 await LobbyService.Instance.RemovePlayerAsync(lobby,playerId);
             }
         }
+        
+        
     }
 
+    
  
     public async void CreateLobby(string code)
     {
@@ -136,7 +140,8 @@ public class testRelay : MonoBehaviour
 
     public async void JoinRelay(string joinCode)
     {
-        try {
+        try
+        {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
                 textOfServ.text = joinCode;
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetClientRelayData(
@@ -146,14 +151,19 @@ public class testRelay : MonoBehaviour
                 joinAllocation.Key,
                 joinAllocation.ConnectionData,
                 joinAllocation.HostConnectionData
-            );
-
-            NetworkManager.Singleton.StartClient();
-        }catch (RelayServiceException error){
-
+        );
+        NetworkManager.Singleton.StartClient();
+        }catch
+        {
+            Panel.SetActive(false);
+            ButtonCreate.SetActive(false);
+            ButtonJoin.SetActive(false);
+            input.SetActive(false);
             CreateRelay();
-            Debug.Log(error);
         }
+
+        
+
     }
 
     public async void ListLobbies()
@@ -175,13 +185,13 @@ public class testRelay : MonoBehaviour
         try{
             Lobby currentLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
             // turn off : the panel, the buttons and the input
+            JoinRelay(currentLobby.Data[keyForRelay].Value);
             Panel.SetActive(false);
             ButtonCreate.SetActive(false);
             ButtonJoin.SetActive(false);
             input.SetActive(false);
-            JoinRelay(currentLobby.Data[keyForRelay].Value);
 
-        }catch (LobbyServiceException)
+        }catch
         {
             // turn off : the panel, the buttons and the input
             Panel.SetActive(false);

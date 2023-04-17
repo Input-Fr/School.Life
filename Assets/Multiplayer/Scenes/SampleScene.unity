@@ -8377,6 +8377,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5904474762781082780, guid: 602e4e33c4c94477fb734c74706a8787, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: -3617574385669095187, guid: 602e4e33c4c94477fb734c74706a8787, type: 3}
@@ -28526,6 +28530,25 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!95 &1841406622 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6394447837058628674, guid: 602e4e33c4c94477fb734c74706a8787, type: 3}
+  m_PrefabInstance: {fileID: 437677928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1841406626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841406611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList: []
+  m_Animator: {fileID: 1841406622}
 --- !u!43 &1841931714
 Mesh:
   m_ObjectHideFlags: 0

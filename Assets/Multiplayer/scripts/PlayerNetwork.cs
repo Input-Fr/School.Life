@@ -6,9 +6,21 @@ using TMPro;
 public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais avec des feature multi en plus
 {
     private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
-
+    bool isHere = false;
     [SerializeField] private Transform spawnedObjectPrefab;
-   
+    private void Start() {
+
+        var objs = FindObjectsOfType<Item.Item>();
+        if (IsLocalPlayer)
+        {
+            for (int i = 0; i < objs.Length; i++)
+            {
+                isHere = objs[i].IsSpawned;
+                objs[i].gameObject.SetActive(isHere);
+            }
+            
+        }    
+    } 
 
     private void Update() {
         if (!IsOwner) return;
