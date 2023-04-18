@@ -8,6 +8,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
     bool isHere = false;
     [SerializeField] private Transform spawnedObjectPrefab;
+    [SerializeField] private GameObject professorPrefab;
     private void Start() {
 
         var objs = FindObjectsOfType<Item.Item>();
@@ -20,7 +21,23 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             }
             
         }    
-    } 
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        if (!IsLocalPlayer || !IsHost) return;
+
+        InstantiateProfessorServerRpc(-8, 0, 8);
+        InstantiateProfessorServerRpc(8, 0, -8);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void InstantiateProfessorServerRpc(float x, float y, float z)
+    {
+        Debug.Log("Instantiate professor");
+        GameObject instantiatedProfessor = Instantiate(professorPrefab, new Vector3(x, y, z), Quaternion.identity);
+        instantiatedProfessor.GetComponent<NetworkObject>().Spawn(true);
+    }
 
     private void Update() {
         if (!IsOwner) return;

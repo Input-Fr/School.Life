@@ -45,10 +45,10 @@ namespace Professors
         private bool _hasDestination;
         private readonly Vector3[] _destinations = 
         {
-            new (7, 0, -7),
-            new (-7,0, -7),
-            new (-7, 0, 7),
-            new (7, 0, 7)
+            new (8, 0, -8),
+            new (-8,0, -8),
+            new (-8, 0, 8),
+            new (8, 0, 8)
         };
 
         #endregion
@@ -231,7 +231,7 @@ namespace Professors
         {
             if (_isPurchasing) return;
 
-            switch (sound.GetType())
+            switch (sound.GetSoundType())
             {
                 case SoundType.Interesting:
                     MoveTo(sound.Position, walkViewRadius, walkViewAngle, walkSpeed);

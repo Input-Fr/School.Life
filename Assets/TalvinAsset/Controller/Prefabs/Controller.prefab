@@ -530,6 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnedObjectPrefab: {fileID: 1758748402281579, guid: 64cbb1566d6b5404cb4722204e1badbd, type: 3}
+  professorPrefab: {fileID: 3209880307807660579, guid: b3c2b25ccdca544f3aba86c520889125, type: 3}
 --- !u!114 &4568339295754106783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3569,7 +3570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interaction: 101
-  usePhone: 114
+  use: 114
+  attack: 109
   inventory: 105
   stopCamera: 310
 --- !u!114 &5629455178004162917

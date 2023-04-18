@@ -6,6 +6,7 @@ namespace Professors
     {
         public static void MakeSound(AudioSource source, Sound sound)
         {
+            // ReSharper disable once Unity.PreferNonAllocApi
             Collider[] colliders = Physics.OverlapSphere(sound.Position, sound.HearingRange);
 
             foreach (Collider collider in colliders)

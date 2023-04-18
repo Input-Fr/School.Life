@@ -5,7 +5,8 @@ namespace User
     public class UserInputs : MonoBehaviour
     {
         public KeyCode interaction;
-        public KeyCode usePhone;
+        public KeyCode use;
+        public KeyCode attack;
         public KeyCode inventory;
         public KeyCode stopCamera;
     }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Professors
 {
     public interface IHear

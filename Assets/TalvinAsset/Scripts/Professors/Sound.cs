@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Professors
 {
@@ -26,7 +25,7 @@ namespace Professors
             _type = soundType;
         }
 
-        public SoundType GetType()
+        public SoundType GetSoundType()
         {
             return _type;
         }

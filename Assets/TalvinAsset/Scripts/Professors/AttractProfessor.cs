@@ -1,8 +1,6 @@
-using System.Collections;
 using Inventory;
 using Item;
 using UnityEngine;
-using UnityEngine.AI;
 using User;
 
 namespace Professors
@@ -24,10 +22,11 @@ namespace Professors
         #endregion
 
         private void Update()
-        { 
+        {
             _currentItem = inventory.GetSelectedItem();
-            if (_currentItem != phone || !Input.GetKeyDown(userInputs.usePhone)) return;
+            if (_currentItem != phone || !Input.GetKeyDown(userInputs.use)) return;
             
+            Debug.Log("ici");
             InventorySlot slot = inventory.GetSlot();
             if (_slot != slot || !_countDown)
             {
