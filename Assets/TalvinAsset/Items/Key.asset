@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackable: 1
   nbItemByStack: 3
-  name: Key
+  multiple: 1
+  itemName: Key
   description: Can unlock a locked door
   image: {fileID: 21300000, guid: 0026da082e0c445feac14063682dcdc3, type: 3}
-  prefab: {fileID: 6796591207418230032, guid: 64cbb1566d6b5404cb4722204e1badbd, type: 3}
+  prefabInScene: {fileID: 6796591207418230032, guid: 64cbb1566d6b5404cb4722204e1badbd, type: 3}
+  prefabInHand: {fileID: 0}

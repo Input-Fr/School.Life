@@ -531,6 +531,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnedObjectPrefab: {fileID: 1758748402281579, guid: 64cbb1566d6b5404cb4722204e1badbd, type: 3}
   professorPrefab: {fileID: 3209880307807660579, guid: b3c2b25ccdca544f3aba86c520889125, type: 3}
+  cam: {fileID: 7248513740963560518}
+  itemsPrefabs:
+  - {fileID: 6796591207418230032, guid: 64cbb1566d6b5404cb4722204e1badbd, type: 3}
+  - {fileID: 28591850792169644, guid: 63244fad222364a7fbf622dc89ec8fa9, type: 3}
+  componentsToDisable:
+  - {fileID: 330633633907025339}
+  - {fileID: 5629455178004162917}
+  - {fileID: 8084230237318464399}
+  - {fileID: 4425428723088313503}
+  - {fileID: 4425428723088313502}
+  - {fileID: 4568339295754106783}
+  interfaceCanvas: {fileID: 2988444481013223911}
+  doorPrefab: {fileID: 0}
 --- !u!114 &4568339295754106783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3590,6 +3603,8 @@ MonoBehaviour:
   inventoryItemPrefab: {fileID: 4918019687312961451, guid: 4c97df25fa246441ab20c6f10efd2555, type: 3}
   toolBar: {fileID: 8601270310399071226}
   mainInventory: {fileID: 1112518361056910854}
+  canChangeSelectedSlot: 1
+  hasSubject: 0
 --- !u!114 &8084230237318464399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4241,6 +4256,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4143070089174759718, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7864254766274136904}
+    - target: {fileID: 4143070089174759718, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: dropPoint
       value: 
       objectReference: {fileID: 2035662224}
@@ -4307,7 +4326,7 @@ PrefabInstance:
     - target: {fileID: 4990370625842688169, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8084230237318464399}
     - target: {fileID: 4990370625842688169, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeInventoryState
@@ -4471,7 +4490,7 @@ PrefabInstance:
     - target: {fileID: 7226847234931411120, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8084230237318464399}
     - target: {fileID: 7226847234931411120, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ChangeInventoryState
@@ -4597,6 +4616,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7248513740963560519}
     - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7864254766274136904}
+    - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: dropPoint
       value: 
       objectReference: {fileID: 2035662224}
@@ -4686,6 +4709,11 @@ GameObject:
 --- !u!224 &1112518361056910854 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7781641609966996375, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+  m_PrefabInstance: {fileID: 7245592917717210513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2988444481013223911 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5617275381474903158, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
   m_PrefabInstance: {fileID: 7245592917717210513}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4095730451837345018 stripped

@@ -26,7 +26,7 @@ namespace Inventory
         
         #endregion
 
-        private void Awake()
+        private void Start()
         {
             tooltip = GetComponentInParent<TooltipSlot>().GetTooltip();
         }
@@ -57,7 +57,7 @@ namespace Inventory
 
         public void OnDrag(PointerEventData eventData)
         {
-            transform.position = Input.mousePosition;
+            //transform.position = Input.mousePosition;
         }
 
         public void OnEndDrag(PointerEventData eventData)

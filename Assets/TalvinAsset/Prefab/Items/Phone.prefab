@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -3150092511244954079}
   - component: {fileID: 297171864053988870}
   - component: {fileID: -1121999177166562928}
+  - component: {fileID: -1710710548806637205}
   m_Layer: 6
   m_Name: Phone
   m_TagString: Item
@@ -203,5 +204,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1710710548806637205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28591850792169644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfabfba6ce97b3459828a5a577d056f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
+
 using Unity.Netcode;
 using TMPro;
+using System;
+
 public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais avec des feature multi en plus
 {
     private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
     bool isHere = false;
     [SerializeField] private Transform spawnedObjectPrefab;
     [SerializeField] private GameObject professorPrefab;
+    [SerializeField] private GameObject cam;
+    [SerializeField] private GameObject[] itemsPrefabs;
+    [SerializeField] private Behaviour[] componentsToDisable;
+    [SerializeField] private GameObject interfaceCanvas;
+
+    [SerializeField] private GameObject doorPrefab;
+    NavMeshSurface _surface;
     private void Start() {
 
         var objs = FindObjectsOfType<Item.Item>();
@@ -21,14 +32,40 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             }
             
         }    
+        else
+        {
+            foreach (Behaviour component in componentsToDisable)
+            {
+                component.enabled = false;
+            }
+
+            cam.SetActive(false);
+            interfaceCanvas.SetActive(false);
+        }
+    }
+
+    private void Awake() {
+        _surface = GameObject.FindGameObjectWithTag("Platform").GetComponent<NavMeshSurface>();
     }
 
     public override void OnNetworkSpawn()
     {
         if (!IsLocalPlayer || !IsHost) return;
+    
+        foreach (GameObject item in itemsPrefabs)
+        {
+            Vector3 pos = new Vector3(0,0,20);
+            for (int i = 0; i < 6; i++)
+            {
+                pos += new Vector3(0, 2, 2);
+                InstantiateItem(item, pos);
+            }
+        }
+
 
         InstantiateProfessorServerRpc(-8, 0, 8);
         InstantiateProfessorServerRpc(8, 0, -8);
+        _surface.BuildNavMesh();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -44,7 +81,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
 
         Vector3[] li = {new Vector3(-10,5,-0),new Vector3(10,5,0)};
 
-        Vector3 randomPos = li[Random.Range(0,2)];
+        Vector3 randomPos = li[UnityEngine.Random.Range(0,2)];
         spawnedObjectPrefab.SetPositionAndRotation(randomPos,Quaternion.identity);
         if (Input.GetKeyDown(KeyCode.T)){
             Transform spawnedObjectTransform = Instantiate(spawnedObjectPrefab);
@@ -52,4 +89,36 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         }
 
     }
+
+    public void InstantiateItem(GameObject item, Vector3 pos)
+        {
+    
+            for (int i = 0; i < itemsPrefabs.Length; i++)
+            {
+                Debug.Log(item.name, itemsPrefabs[i]);
+                if (itemsPrefabs[i] != item) continue;
+                InstantiateItemServerRpc(i, pos.x, pos.y, pos.z);
+                return;
+            }
+
+            throw new Exception();
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void InstantiateItemServerRpc(int index, float x, float y, float z)
+        {
+            GameObject item = itemsPrefabs[index];
+            GameObject instantiatedItem = Instantiate(item, new Vector3(x, y, z), Quaternion.identity);
+            instantiatedItem.GetComponent<NetworkObject>().Spawn(true);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void InstantiateDoorServerRpc(float x, float y, float z)
+        {
+            GameObject instantiatedDoor = Instantiate(doorPrefab, new Vector3(x, y, z), Quaternion.identity);
+            instantiatedDoor.GetComponent<NetworkObject>().Spawn(true);
+        }
+
+        
 }
+

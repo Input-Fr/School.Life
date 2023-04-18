@@ -7,7 +7,7 @@ namespace Inventory
     {
         #region Variables
 
-        [SerializeField] private Transform parent;
+        [SerializeField] private PlayerNetwork player;
         [SerializeField] private Transform dropPoint;
 
         #endregion
@@ -16,13 +16,10 @@ namespace Inventory
         public void OnDrop(PointerEventData eventData)
         {
             InventoryItem item = eventData.pointerDrag.GetComponent<InventoryItem>();
-            GameObject prefab = item.slot.itemData.prefab;
         
             for (int i = 0; i < item.numberItem; i++)
             {
-                GameObject instantiatedItem = Instantiate(prefab, parent);
-                instantiatedItem.transform.position = dropPoint.position;
-                instantiatedItem.name = item.slot.itemData.name;
+                player.InstantiateItem(item.slot.itemData.prefabInScene,dropPoint.position);
             }
         
             item.isDropped = true;

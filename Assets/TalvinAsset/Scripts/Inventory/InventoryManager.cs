@@ -15,6 +15,8 @@ namespace Inventory
         [SerializeField] private Transform mainInventory;
 
         private int _selectedSlot = -1;
+        [HideInInspector] public bool canChangeSelectedSlot = true;
+        [HideInInspector] public bool hasSubject;
 
         #endregion
 
@@ -59,25 +61,54 @@ namespace Inventory
     
         public bool AddItem(ItemData itemData)
         {
-            foreach (InventorySlot slot in inventorySlots)
+            if (itemData.stackable)
             {
-                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (itemInSlot == null || itemInSlot.itemData != itemData || itemInSlot.numberItem >= itemInSlot.itemData.nbItemByStack || !itemInSlot.itemData.stackable) continue;
+                foreach (InventorySlot slot in inventorySlots)
+                {
+                    InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                    if (itemInSlot == null || itemInSlot.itemData != itemData || itemInSlot.numberItem >= itemInSlot.itemData.nbItemByStack) continue;
                 
-                itemInSlot.numberItem++;
-                itemInSlot.RefreshCount();
-                return true;
+                    itemInSlot.numberItem++;
+                    itemInSlot.RefreshCount();
+                    return true;
+                }
             }
-        
-            foreach (InventorySlot inventorySlot in inventorySlots)
+
+            if (itemData.multiple)
             {
-                TooltipSlot slot = inventorySlot.gameObject.GetComponent<TooltipSlot>();
-                InventoryItem itemInSlot = inventorySlot.GetComponentInChildren<InventoryItem>();
-                if (itemInSlot != null) continue;
-                
-                SpawnNewItem(itemData, inventorySlot);
-                slot.itemData = itemData;
-                return true;
+                foreach (InventorySlot inventorySlot in inventorySlots)
+                {
+                    TooltipSlot slot = inventorySlot.gameObject.GetComponent<TooltipSlot>();
+                    InventoryItem itemInSlot = inventorySlot.GetComponentInChildren<InventoryItem>();
+                    if (itemInSlot != null) continue;
+
+                    SpawnNewItem(itemData, inventorySlot);
+                    slot.itemData = itemData;
+                    if (itemData.itemName == "Subject")
+                    {
+                        hasSubject = true;
+                    }
+                    return true;
+                }
+            }
+            else
+            {
+                foreach (InventorySlot inventorySlot in inventorySlots)
+                {
+                    TooltipSlot slot = inventorySlot.gameObject.GetComponent<TooltipSlot>();
+                    if (slot.itemData == itemData) return false;
+                    
+                    InventoryItem itemInSlot = inventorySlot.GetComponentInChildren<InventoryItem>();
+                    if (itemInSlot != null) continue;
+
+                    SpawnNewItem(itemData, inventorySlot);
+                    slot.itemData = itemData;
+                    if (itemData.itemName == "Subject")
+                    {
+                        hasSubject = true;
+                    }
+                    return true;
+                }
             }
 
             return false;

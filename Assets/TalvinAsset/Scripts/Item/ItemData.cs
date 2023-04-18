@@ -8,11 +8,21 @@ namespace Item
         [Header("Only UI")] 
         public bool stackable = true;
         public uint nbItemByStack;
+        public bool multiple = true;
+
 
         [Header("Both")] 
-        public string name;
+        public string itemName;
         public string description;
         public Sprite image;
-        public GameObject prefab;
+        public GameObject prefabInScene;
+        public GameObject prefabInHand;
+
+        private void Awake() {
+            if (multiple || stackable) return;
+            nbItemByStack = 1;
+            stackable = false;
+
+        }
     }
 }

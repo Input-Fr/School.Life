@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackable: 0
   nbItemByStack: 0
-  name: Phone
+  multiple: 0
+  itemName: Phone
   description: It can make a sound
   image: {fileID: 21300000, guid: 517bec4f4faa94e0ea6fa7739279b3be, type: 3}
-  prefab: {fileID: 28591850792169644, guid: 63244fad222364a7fbf622dc89ec8fa9, type: 3}
+  prefabInScene: {fileID: 28591850792169644, guid: 63244fad222364a7fbf622dc89ec8fa9, type: 3}
+  prefabInHand: {fileID: 0}
