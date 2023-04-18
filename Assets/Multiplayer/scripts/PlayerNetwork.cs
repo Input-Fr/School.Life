@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
-
+using User;
 using Unity.Netcode;
 using TMPro;
 using System;
+using Door;
 
 public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais avec des feature multi en plus
 {
     private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
+
+    private BatState batstate;
     bool isHere = false;
     [SerializeField] private Transform spawnedObjectPrefab;
     [SerializeField] private GameObject professorPrefab;
@@ -34,6 +37,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         }    
         else
         {
+            batstate.ChangeStateBatServerRpc(batstate.hasBatInHand.Value);
             foreach (Behaviour component in componentsToDisable)
             {
                 component.enabled = false;
@@ -45,6 +49,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     }
 
     private void Awake() {
+        batstate = GetComponent<BatState>();
         _surface = GameObject.FindGameObjectWithTag("Platform").GetComponent<NavMeshSurface>();
     }
 
@@ -52,19 +57,23 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     {
         if (!IsLocalPlayer || !IsHost) return;
     
+    Vector3 pos = new Vector3(0,0,20);
         foreach (GameObject item in itemsPrefabs)
         {
-            Vector3 pos = new Vector3(0,0,20);
             for (int i = 0; i < 6; i++)
             {
-                pos += new Vector3(0, 2, 2);
+                pos += new Vector3(0, 0, 2);
                 InstantiateItem(item, pos);
             }
+            pos += new Vector3(0, 2, 2);
         }
 
 
         InstantiateProfessorServerRpc(-8, 0, 8);
         InstantiateProfessorServerRpc(8, 0, -8);
+
+        InstantiateDoorServerRpc(0,0,15);
+
         _surface.BuildNavMesh();
     }
 
@@ -117,6 +126,8 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         {
             GameObject instantiatedDoor = Instantiate(doorPrefab, new Vector3(x, y, z), Quaternion.identity);
             instantiatedDoor.GetComponent<NetworkObject>().Spawn(true);
+            MyDoorController door = instantiatedDoor.GetComponentInChildren<MyDoorController>();
+            door.ChangeVariableServerRpc(door.gameObject.tag == "Locked");
         }
 
         

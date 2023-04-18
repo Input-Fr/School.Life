@@ -53,6 +53,7 @@ namespace Canvas
             layoutElement.enabled = headerLength > maxCharacter || contentLength > maxCharacter;
 
             UpdatePosition();
+            
             gameObject.SetActive(true);
         }
 

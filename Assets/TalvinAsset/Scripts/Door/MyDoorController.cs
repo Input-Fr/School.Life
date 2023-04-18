@@ -1,35 +1,48 @@
-using UnityEngine;
 using System.Collections;
 using Unity.AI.Navigation;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Door
 {
-    public class MyDoorController : MonoBehaviour
+    public class MyDoorController : NetworkBehaviour
     {
         #region Variables
 
+        private NavMeshSurface _surface;
+        public NetworkVariable<bool> isLocked = new NetworkVariable<bool> (false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         [SerializeField] private Animator doorAnimator;
-        [SerializeField] public bool doorOpen = false;
-        NavMeshSurface _surface;
+        [SerializeField] public bool doorOpen;
 
         #endregion
 
-        private void Start() {
+        private void Start()
+        {
+            gameObject.tag = isLocked.Value ? "Locked" : "Unlocked";
+            isLocked.OnValueChanged += ChangeDoorTag;
             _surface = GameObject.FindGameObjectWithTag("Platform").GetComponent<NavMeshSurface>();
+        }
+
+        private void ChangeDoorTag(bool previous, bool newValue){
+            Debug.Log("In change door tag delegate");
+            if (isLocked.Value == false)
+            {
+                ChangeTagServerRpc();
+            }
         }
 
         public void PlayAnimation()
         {
             if (!doorOpen)
             {
-                doorAnimator.Play("DoorOpen", 0, 0.0f);
+                PlayAnimationServerRpc("DoorOpen");
                 doorOpen = true;
             }
 
             else
             {
-                doorAnimator.Play("DoorClose", 0, 0.0f);
+                PlayAnimationServerRpc("DoorClose");
                 doorOpen = false;
             }
 
@@ -53,12 +66,29 @@ namespace Door
         {
             doorAnimator.Play(animationName, 0, 0.0f);
         }
-
+        
         [ServerRpc(RequireOwnership = false)]
         private void SurfaceBakeServerRpc()
         {
             _surface.BuildNavMesh();
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        private void ChangeTagServerRpc()
+        {
+            ChangeTagClientRpc();
+        }
+
+        [ClientRpc]
+        private void ChangeTagClientRpc()
+        {
+            gameObject.tag = "Unlocked";
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void ChangeVariableServerRpc(bool value){
+            isLocked.Value = value;
+            Debug.Log("value" + isLocked.Value);
+        }
     }
 }

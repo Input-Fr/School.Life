@@ -3,8 +3,8 @@ using Inventory;
 using UnityEngine;
 using UnityEngine.Serialization;
 using User;
-
-public class vThirdPersonCamera : MonoBehaviour
+using Unity.Netcode;
+public class vThirdPersonCamera : NetworkBehaviour
 {
     #region inspector properties
 
@@ -17,6 +17,8 @@ public class vThirdPersonCamera : MonoBehaviour
     public LayerMask cullingLayer = 1 << 0;
     [Tooltip("Debug purposes, lock the camera behind the character for better align the states")]
     public bool lockCamera;
+
+    [SerializeField] public NetworkVariable<bool> canMoveCamera = new NetworkVariable<bool> (true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     public float rightOffset = 0f;
     public float defaultDistance = 2.5f;
@@ -61,6 +63,8 @@ public class vThirdPersonCamera : MonoBehaviour
     private float cullingHeight = 0.2f;
     private float cullingMinDist = 0.1f;
 
+    [SerializeField] 
+
     #endregion
 
     void Start()
@@ -87,6 +91,10 @@ public class vThirdPersonCamera : MonoBehaviour
 
         distance = defaultDistance;
         currentHeight = height;
+    }
+
+    public void SetCanMoveCamera(bool state){
+        canMoveCamera.Value = state;
     }
 
     void FixedUpdate()
@@ -131,7 +139,7 @@ public class vThirdPersonCamera : MonoBehaviour
     /// <param name="y"></param>
     public void RotateCamera(float x, float y)
     {
-        if (inventory.IsOpen || Input.GetKey(userInputs.stopCamera)) return;
+        if (inventory.IsOpen || Input.GetKey(userInputs.stopCamera) || !canMoveCamera.Value) return;
 
         // free rotation 
         mouseX += x * xMouseSensitivity;

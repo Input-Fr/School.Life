@@ -1,49 +1,34 @@
 using Inventory;
-using UnityEngine;
 using Unity.Netcode;
+using UnityEngine;
+
 namespace Item
 {
     public class Item : NetworkBehaviour
     {
         #region Variables
-
+        
         public ItemData itemData;
 
         #endregion
 
-        
-
-
-        public void Pickup(InventoryManager inventory)
+        public bool Pickup(InventoryManager inventory)
         {
             if (inventory.AddItem(itemData))
             {
-                DestroyObjServerRpc();
+                DestroyItemServerRpc();
+                return true;
             }
-            else
-            {
-                Debug.Log("Can't ADD the Item, Inventory full");
-            }
+            
+            Debug.Log("Can't ADD the Item");
+            return false;
         }
 
         [ServerRpc(RequireOwnership = false)]
-        void DestroyObjServerRpc()
+        private void DestroyItemServerRpc()
         {
-            gameObject.GetComponent<NetworkObject>().Despawn();
-            //NetworkObject netObject = GetComponent<NetworkObject>();
-            
-           
-            // Destroy(gameObject);
-        }
-
-        public void EnableOutline()
-        {
-            GetComponent<Outline>().enabled = true;
-        }
-
-        public void DisableOutline()
-        {
-            GetComponent<Outline>().enabled = false;
+            GetComponent<NetworkObject>().Despawn();
+            Destroy(gameObject);
         }
     }
 }

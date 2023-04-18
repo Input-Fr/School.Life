@@ -1,5 +1,6 @@
 using UnityEngine;
 using User;
+using Door;
 using Unity.Netcode;
 using System;
 using TMPro;
@@ -13,7 +14,7 @@ namespace Item
         [SerializeField] private float viewAngle;
         [SerializeField] private LayerMask environment;        
         public GameObject boxDeMesRoubignoles;
-        bool IsClicked = false;
+        DoorsInteraction _door;
 
         #endregion
     
@@ -28,19 +29,12 @@ namespace Item
         protected override void Awake()
         {
             Camera = GetComponent<Camera>();
+            _door = GetComponent<DoorsInteraction>();
         }
 
         protected override void Update()
         {
             InitialiseVariables();
-            if (Input.GetKeyDown(userInputs.interaction))
-            {
-                IsClicked = true;
-            }
-            if (IsClicked && !DetectTarget())
-            {
-                boxDeMesRoubignoles.SetActive(false);
-            }
             
 
             if (DetectTarget())
@@ -51,6 +45,10 @@ namespace Item
             else if (!SameObjects)
             {
                 HideInformation();
+            }
+            else if (text.IsActive() && !_door.isDetected)
+            {
+                text.Hide();
             }
         }
 
@@ -99,9 +97,15 @@ namespace Item
                 }
             }
 
+            
+            if (currentObject == CurrentObject)
+            {
+                if (PreviousObject != CurrentObject) PreviousObject = CurrentObject;
+                else if (!CurrentObject) PreviousObject = null;
+            }
             CurrentObject = currentObject;
-            isDetected = (bool)CurrentObject;
             SameObjects = CurrentObject == PreviousObject;
+            isDetected = (bool)CurrentObject;
             return isDetected;
         }
     

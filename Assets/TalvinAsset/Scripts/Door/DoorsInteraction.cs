@@ -1,6 +1,9 @@
-using Item;
-using UnityEngine;
+using System.Collections.Generic;
 using User;
+using Item;
+using Unity.Netcode;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Door
 {
@@ -10,15 +13,14 @@ namespace Door
 
         private MyDoorController _door;
         private ItemsInteraction _items;
-    
-        private const string UnlockedDoor = "Unlocked";
-        private const string Key = "Key";
 
         private ItemData _previousItemData;
         private ItemData _currentItemData;
 
         private bool _sameItemData;
         private bool _isLocked;
+
+        private GameObject _doorObj;
 
         #endregion
 
@@ -73,7 +75,7 @@ namespace Door
 
             CurrentObject = currentObject;
             isDetected = (bool)CurrentObject;
-            _isLocked = isDetected && !CurrentObject.CompareTag(UnlockedDoor);
+            _isLocked = isDetected && !CurrentObject.CompareTag("Unlocked");
             SameObjects = CurrentObject == PreviousObject;
             return isDetected;
         }
@@ -102,26 +104,24 @@ namespace Door
 
             if (!text.IsActive())
             {
-                if ((bool)_currentItemData && _currentItemData.name == Key) 
+                if ((bool)_currentItemData && _currentItemData.itemName == "Key") 
                     text.Show(Color.white, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), Content());
                 else 
                     text.Show(Color.red, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), Content());
-            
             }
         
             else
             {
-                if (!(bool)_currentItemData) return;
-
-                if (_currentItemData.name == Key)
+                if ((bool)_currentItemData && _currentItemData.itemName == "Key")
                 {
                     HideInformation();
                     text.Show(Color.white, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), Content());
-                    return;
                 }
-                
-                HideInformation();
-                text.Show(Color.red, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), Content());
+                else
+                {
+                    HideInformation();
+                    text.Show(Color.red, CurrentObject.transform.position + new Vector3(0, 0.5f, 0), Content());
+                }
             }
         }
 
@@ -143,10 +143,11 @@ namespace Door
         private void UserLockedDoorInteract()
         {
             if (!(bool)_currentItemData) return;
-            if (_currentItemData.name != Key) return;
+            if (_currentItemData.itemName != "Key") return;
             
             inventory.UseSelectedItem();
-            CurrentObject.tag = UnlockedDoor;
+            _doorObj = CurrentObject;
+            _door.ChangeVariableServerRpc(false);
             HideInformation();
         }
 
