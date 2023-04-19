@@ -7,6 +7,7 @@ using Unity.Netcode;
 using TMPro;
 using System;
 using Door;
+using Invector.vCharacterController;
 
 public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais avec des feature multi en plus
 {
@@ -20,7 +21,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     [SerializeField] private GameObject[] itemsPrefabs;
     [SerializeField] private Behaviour[] componentsToDisable;
     [SerializeField] private GameObject interfaceCanvas;
-
+    [SerializeField] private GameObject filter;
     [SerializeField] private GameObject doorPrefab;
     NavMeshSurface _surface;
     private void Start() {
@@ -28,6 +29,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         var objs = FindObjectsOfType<Item.Item>();
         if (IsLocalPlayer)
         {
+            gameObject.layer = LayerMask.NameToLayer("Default");
             for (int i = 0; i < objs.Length; i++)
             {
                 isHere = objs[i].IsSpawned;
@@ -130,6 +132,41 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             door.ChangeVariableServerRpc(door.gameObject.tag == "Locked");
         }
 
+        [ServerRpc(RequireOwnership = false)]
+        public void ChangeCanMoveCameraServerRpc(int id)
+        {
+            ChangeCanMoveCameraClientRpc(id);
+        }
+
+        [ClientRpc]
+        private void ChangeCanMoveCameraClientRpc(int id)
+        {
+            if ((int)NetworkObjectId == id)
+            {
+                foreach (Transform child in transform)
+                {
+                    if (child.TryGetComponent(out vThirdPersonCamera vThirdPersonCamera) && TryGetComponent(out vThirdPersonController vThirdPersonController))
+                    {
+                        StartCoroutine(ChangeCanMoveCamera(vThirdPersonCamera, vThirdPersonController));
+                        return;
+                    }
+                }
+
+                throw new Exception();
+            }
+        }
         
+        private IEnumerator ChangeCanMoveCamera(vThirdPersonCamera vThirdPersonCamera, vThirdPersonController vThirdPersonController)
+        {
+            vThirdPersonCamera.canMoveCamera = false;
+            vThirdPersonController.canOnlyWalk = true;
+            filter.SetActive(true);
+
+            yield return new WaitForSeconds(5f);
+            
+            filter.SetActive(false);
+            vThirdPersonController.canOnlyWalk = false;
+            vThirdPersonCamera.canMoveCamera = true;
+        }
 }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using User;
 
@@ -13,29 +14,24 @@ namespace Item
         [SerializeField] private float maxDistance;
         [SerializeField] private LayerMask playerMask;
 
-        private GameObject _playerHit;
+        private GameObject _playerHitGameObject;
 
         private void Update()
         {
             if (!gameObject.activeSelf) return;
             Ray ray = new Ray(controller.transform.position + new Vector3(0,1,0), controller.transform.forward);
-            if (!Physics.Raycast(ray, out RaycastHit hit, maxDistance, playerMask))
+            if (!Physics.Raycast(ray, out var playerHit, maxDistance, playerMask) || !Input.GetKeyDown(userInputs.attack))
                 return;
 
-            Debug.Log("Player in view");
-            _playerHit = hit.transform.gameObject;
+            _playerHitGameObject = playerHit.transform.gameObject;
 
-            StartCoroutine(UpdateCameraMovement(_playerHit));
-        }
+            if (_playerHitGameObject.TryGetComponent(out PlayerNetwork player))
+            {
+                player.ChangeCanMoveCameraServerRpc((int)player.GetComponent<NetworkObject>().NetworkObjectId);
+                return;
+            }
 
-        private IEnumerator UpdateCameraMovement(GameObject playerHit)
-        {
-            Debug.Log("set camera move false");
-            playerHit.GetComponent<vThirdPersonCamera>().SetCanMoveCamera(false);
-            
-            yield return new WaitForSeconds(5f);
-            playerHit.GetComponent<vThirdPersonCamera>().SetCanMoveCamera(true);
-            _playerHit = null;
+            throw new Exception();
         }
 
         private void OnDrawGizmos()

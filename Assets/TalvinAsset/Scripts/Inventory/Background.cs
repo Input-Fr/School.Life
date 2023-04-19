@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using User;
 
 namespace Inventory
 {
@@ -9,6 +10,7 @@ namespace Inventory
 
         [SerializeField] private PlayerNetwork player;
         [SerializeField] private Transform dropPoint;
+        [SerializeField] private BatState batState;
 
         #endregion
     
@@ -24,6 +26,11 @@ namespace Inventory
         
             item.isDropped = true;
             item.slot.itemData = null;
+
+            if (batState.hasBatInHand.Value)
+            {
+                batState.HasBatInHand();
+            }
         }
     }
 }

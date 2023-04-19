@@ -17,7 +17,7 @@ namespace User
         private ItemData _currentItem;
         
         private GameObject _currentBat;
-        public NetworkVariable<bool> hasBatInHand = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        public NetworkVariable<bool> hasBatInHand = new(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         #endregion
 
@@ -34,19 +34,29 @@ namespace User
             
             if (!hasBatInHand.Value)
             {
-                _currentItem = _inventory.GetSelectedItem();
-                if (_currentItem != bat) return;
-                
-                hasBatInHand.Value = true;
-                _inventory.canChangeSelectedSlot = false;
-                ChangeStateBatServerRpc(true);
+                HasNotBatInHand();
             }
             else
             {
-                ChangeStateBatServerRpc(false);
-                _inventory.canChangeSelectedSlot = true;
-                hasBatInHand.Value = false;
+                HasBatInHand();
             }
+        }
+
+        private void HasNotBatInHand()
+        {
+            _currentItem = _inventory.GetSelectedItem();
+            if (_currentItem != bat) return;
+                
+            hasBatInHand.Value = true;
+            _inventory.canChangeSelectedSlot = false;
+            ChangeStateBatServerRpc(true);
+        }
+
+        public void HasBatInHand()
+        {
+            ChangeStateBatServerRpc(false);
+            _inventory.canChangeSelectedSlot = true;
+            hasBatInHand.Value = false;
         }
 
         [ServerRpc(RequireOwnership = false)]

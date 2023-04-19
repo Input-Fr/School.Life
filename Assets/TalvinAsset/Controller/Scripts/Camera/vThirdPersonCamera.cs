@@ -18,7 +18,7 @@ public class vThirdPersonCamera : NetworkBehaviour
     [Tooltip("Debug purposes, lock the camera behind the character for better align the states")]
     public bool lockCamera;
 
-    [SerializeField] public NetworkVariable<bool> canMoveCamera = new NetworkVariable<bool> (true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    public bool canMoveCamera = true;
 
     public float rightOffset = 0f;
     public float defaultDistance = 2.5f;
@@ -69,6 +69,7 @@ public class vThirdPersonCamera : NetworkBehaviour
 
     void Start()
     {
+        canMoveCamera = true;
         Init();
     }
 
@@ -91,10 +92,6 @@ public class vThirdPersonCamera : NetworkBehaviour
 
         distance = defaultDistance;
         currentHeight = height;
-    }
-
-    public void SetCanMoveCamera(bool state){
-        canMoveCamera.Value = state;
     }
 
     void FixedUpdate()
@@ -139,7 +136,7 @@ public class vThirdPersonCamera : NetworkBehaviour
     /// <param name="y"></param>
     public void RotateCamera(float x, float y)
     {
-        if (inventory.IsOpen || Input.GetKey(userInputs.stopCamera) || !canMoveCamera.Value) return;
+        if (inventory.IsOpen || Input.GetKey(userInputs.stopCamera) || !canMoveCamera) return;
 
         // free rotation 
         mouseX += x * xMouseSensitivity;
