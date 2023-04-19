@@ -175,7 +175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4093408953815162}
-  - component: {fileID: 205407599501424844}
   - component: {fileID: -894056051643156968}
   - component: {fileID: -9166728582828744619}
   m_Layer: 0
@@ -203,33 +202,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!205 &205407599501424844
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850600616112740}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0.4, z: -0.000000059604645}
-  m_Size: 0.8
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.6
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23382508822895366}
-  - screenRelativeHeight: 0.3
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23373501129281490}
-  - screenRelativeHeight: 0.1
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 23037650649571916}
-  m_Enabled: 1
 --- !u!114 &-894056051643156968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +219,7 @@ MonoBehaviour:
   maxDistance: 4
   playerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 768
 --- !u!114 &-9166728582828744619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,9 +238,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01

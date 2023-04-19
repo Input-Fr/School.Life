@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 1589054298825109443}
   - component: {fileID: 7204725574067333787}
   - component: {fileID: 5452467243799704857}
-  - component: {fileID: 1571304840203753908}
   - component: {fileID: 3888524142230932873}
   - component: {fileID: 1706962118419451055}
   - component: {fileID: -3150092511244954079}
   - component: {fileID: 297171864053988870}
   - component: {fileID: -1121999177166562928}
   - component: {fileID: -1710710548806637205}
+  - component: {fileID: 7716668745028656971}
   m_Layer: 6
   m_Name: Phone
   m_TagString: Item
@@ -108,19 +108,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &1571304840203753908
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 28591850792169644}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.17370963, y: 0.021054387, z: 0.36414027}
-  m_Center: {x: 0.00068986416, y: 0.00870919, z: -0.0039464533}
 --- !u!114 &3888524142230932873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +205,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfabfba6ce97b3459828a5a577d056f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7716668745028656971
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28591850792169644}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25897953, y: 0.11915767, z: 0.38058776}
+  m_Center: {x: -0.0068663806, y: 0.0078116953, z: -0.009698868}

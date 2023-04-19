@@ -57,15 +57,15 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     {
         if (!IsLocalPlayer || !IsHost) return;
     
-    Vector3 pos = new Vector3(0,0,20);
+        Vector3 pos = new Vector3(0,0,20);
         foreach (GameObject item in itemsPrefabs)
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 2; i++)
             {
                 pos += new Vector3(0, 0, 2);
                 InstantiateItem(item, pos);
             }
-            pos += new Vector3(0, 2, 2);
+            pos += new Vector3(0, 0, 2);
         }
 
 
