@@ -1,6 +1,7 @@
 using Inventory.Tooltip;
 using Item;
 using UnityEngine;
+using User;
 
 namespace Inventory
 {
@@ -18,6 +19,9 @@ namespace Inventory
         [HideInInspector] public bool canChangeSelectedSlot = true;
         [HideInInspector] public bool hasSubject;
 
+        [SerializeField] private BatState batState;
+        [SerializeField] private BatUsing batUsing;
+        
         #endregion
 
         private void Start()
@@ -38,7 +42,7 @@ namespace Inventory
 
         private void Update()
         {
-            if (Input.inputString != null)
+            if (Input.inputString != null && canChangeSelectedSlot)
             {
                 bool isNumber = int.TryParse(Input.inputString, out int number);
                 if (isNumber && number is > 0 and < 5)
@@ -119,6 +123,19 @@ namespace Inventory
             GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
             InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
             inventoryItem.InitialiseItem(itemData);
+            if (itemData.itemName == "Bat")
+            {
+                batState.inventoryItem = inventoryItem;
+                batUsing.inventoryItem = inventoryItem;
+                batUsing.InstantiateFillAmount();
+            }
+        }
+
+        public InventoryItem GetSelectedInventoryItem()
+        {
+            InventorySlot slot = inventorySlots[_selectedSlot];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            return itemInSlot;
         }
 
         public ItemData GetSelectedItem()

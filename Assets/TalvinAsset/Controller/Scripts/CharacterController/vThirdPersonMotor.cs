@@ -54,6 +54,8 @@ namespace Invector.vCharacterController
         public float groundMaxDistance = 0.5f;
         [Tooltip("Max angle to walk")]
         [Range(30, 80)] public float slopeLimit = 75f;
+
+        public bool canOnlyWalk;
         #endregion
 
         #region Components
@@ -157,10 +159,11 @@ namespace Invector.vCharacterController
 
         public virtual void SetControllerMoveSpeed(vMovementSpeed speed)
         {
-            if (speed.walkByDefault)
-                moveSpeed = Mathf.Lerp(moveSpeed, isSprinting ? speed.runningSpeed : speed.walkSpeed, speed.movementSmooth * Time.deltaTime);
-            else
-                moveSpeed = Mathf.Lerp(moveSpeed, isSprinting ? speed.sprintSpeed : speed.runningSpeed, speed.movementSmooth * Time.deltaTime);
+            moveSpeed = speed.walkByDefault || canOnlyWalk
+                ? Mathf.Lerp(moveSpeed, isSprinting ? speed.runningSpeed : speed.walkSpeed,
+                    speed.movementSmooth * Time.deltaTime)
+                : Mathf.Lerp(moveSpeed, isSprinting ? speed.sprintSpeed : speed.runningSpeed,
+                    speed.movementSmooth * Time.deltaTime);
         }
 
         public virtual void MoveCharacter(Vector3 _direction)

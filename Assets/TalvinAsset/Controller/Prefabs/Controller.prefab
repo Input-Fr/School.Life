@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 4568339295754106783}
   - component: {fileID: 9166407777702941727}
   - component: {fileID: 2861199275834759179}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Controller
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -426,6 +426,7 @@ MonoBehaviour:
   groundMinDistance: 0.25
   groundMaxDistance: 0.5
   slopeLimit: 45
+  canOnlyWalk: 0
 --- !u!114 &4425428723088313502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,7 +547,9 @@ MonoBehaviour:
   - {fileID: 4425428723088313502}
   - {fileID: 4568339295754106783}
   - {fileID: 2861199275834759179}
+  - {fileID: 1043650099591993537}
   interfaceCanvas: {fileID: 2988444481013223911}
+  filter: {fileID: 6000672441108195231}
   doorPrefab: {fileID: 1422899132282058802, guid: a96e44ecb73024275b7bfb6a0abd35c5, type: 3}
 --- !u!114 &4568339295754106783
 MonoBehaviour:
@@ -592,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffa533e3484145d4986a7cd94ef484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 0}
   batToSet: {fileID: 9073334754314951869}
   bat: {fileID: 11400000, guid: 9049d0512829f4d5295f717ded1040e2, type: 2}
   hasBatInHand:
@@ -3626,6 +3630,8 @@ MonoBehaviour:
   mainInventory: {fileID: 1112518361056910854}
   canChangeSelectedSlot: 1
   hasSubject: 0
+  batState: {fileID: 2861199275834759179}
+  batUsing: {fileID: 1043650099591993537}
 --- !u!114 &8084230237318464399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4280,10 +4286,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4020359407176266254, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4143070089174759718, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 7864254766274136904}
+    - target: {fileID: 4143070089174759718, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: batState
+      value: 
+      objectReference: {fileID: 2861199275834759179}
     - target: {fileID: 4143070089174759718, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: dropPoint
       value: 
@@ -4352,14 +4366,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8084230237318464399}
-    - target: {fileID: 4990370625842688169, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeInventoryState
-      objectReference: {fileID: 0}
-    - target: {fileID: 4990370625842688169, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Inventory.InventoryState, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 5143559720004289594, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4411,10 +4417,6 @@ PrefabInstance:
     - target: {fileID: 5617275381474903158, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_Name
       value: Interface
-      objectReference: {fileID: 0}
-    - target: {fileID: 5617275381474903158, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5647587228116705570, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4516,14 +4518,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8084230237318464399}
-    - target: {fileID: 7226847234931411120, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeInventoryState
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226847234931411120, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Inventory.InventoryState, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 7491177294613638703, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4572,10 +4566,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7617377506354574131, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7633070957284109788, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4599,10 +4589,6 @@ PrefabInstance:
     - target: {fileID: 7633070957284109788, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7766449393420160115, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8207064866979459453, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4636,22 +4622,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: parent
-      value: 
-      objectReference: {fileID: 7248513740963560519}
     - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 7864254766274136904}
     - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+      propertyPath: batState
+      value: 
+      objectReference: {fileID: 2861199275834759179}
+    - target: {fileID: 8481455635321053141, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: dropPoint
       value: 
       objectReference: {fileID: 2035662224}
-    - target: {fileID: 8673180395936816036, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8781824141303025399, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4746,6 +4728,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6655037651661162859, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
   m_PrefabInstance: {fileID: 7245592917717210513}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6000672441108195231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4020359407176266254, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
+  m_PrefabInstance: {fileID: 7245592917717210513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6489097855662663234 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4503718653129880531, guid: 7ef6c2e2e70c788419a2e11120d95582, type: 3}
@@ -4780,17 +4767,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 4425428724247035072}
     m_Modifications:
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: batState
+      value: 
+      objectReference: {fileID: 2861199275834759179}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 4425428723088313499}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: numberKick
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: userInputs
       value: 
       objectReference: {fileID: 330633633907025339}
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: numberKickLeft
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: playerMask.m_Bits
       value: 768
       objectReference: {fileID: 0}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: fillLeftKickAmountPrefab
+      value: 
+      objectReference: {fileID: 2102959409041615687, guid: 6287dcc88aa414fc19f906e100498bf6, type: 3}
     - target: {fileID: 1850600616112740, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: m_Name
       value: Bat_v1_inHand
@@ -4861,6 +4864,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+--- !u!114 &1043650099591993537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+  m_PrefabInstance: {fileID: 9073740592088755929}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073334754314951869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c472d9411e9e4a45b4d860283db8e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9071072159079792291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4093408953815162, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
