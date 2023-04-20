@@ -83,6 +83,7 @@ namespace Door
         private void ChangeTagClientRpc()
         {
             gameObject.tag = "Unlocked";
+            Debug.Log("Client porte");
         }
 
         [ServerRpc(RequireOwnership = false)]

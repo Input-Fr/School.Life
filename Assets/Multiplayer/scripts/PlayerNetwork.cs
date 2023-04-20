@@ -24,6 +24,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     [SerializeField] private GameObject doorPrefab;
     NavMeshSurface _surface;
     private void Start() {
+        
 
         var objs = FindObjectsOfType<Item.Item>();
         if (IsLocalPlayer)
@@ -72,7 +73,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         InstantiateProfessorServerRpc(-8, 0, 8);
         InstantiateProfessorServerRpc(8, 0, -8);
 
-        InstantiateDoorServerRpc(0,0,15);
+        InstantiateDoorServerRpc(0,-1.5f,15);
 
         _surface.BuildNavMesh();
     }
@@ -91,6 +92,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         Vector3[] li = {new Vector3(-10,5,-0),new Vector3(10,5,0)};
 
         Vector3 randomPos = li[UnityEngine.Random.Range(0,2)];
+        randomPos = new Vector3(UnityEngine.Random.Range(-10,10),5,UnityEngine.Random.Range(-10,10));
         spawnedObjectPrefab.SetPositionAndRotation(randomPos,Quaternion.identity);
         if (Input.GetKeyDown(KeyCode.T)){
             Transform spawnedObjectTransform = Instantiate(spawnedObjectPrefab);
