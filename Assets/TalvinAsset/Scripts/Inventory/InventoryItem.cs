@@ -28,7 +28,8 @@ namespace Inventory
 
         private void Start()
         {
-            tooltip = GetComponentInParent<TooltipSlot>().GetTooltip();
+            slot = GetComponentInParent<TooltipSlot>();
+            tooltip = slot.GetTooltip();
         }
 
         public void InitialiseItem(ItemData newItemData)
@@ -51,7 +52,7 @@ namespace Inventory
             tooltip.Hide();
             image.raycastTarget = false;
             parentAfterDrag = transform.parent;
-            slot = GetComponentInParent<TooltipSlot>();
+            //slot = GetComponentInParent<TooltipSlot>();
             transform.SetParent(transform.parent.parent.parent.parent);
         }
 

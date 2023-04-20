@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ade92f4-3093-48f9-8925-e81e7ae7ee60" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.School.Life/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.School.Life/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Multiplayer/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Multiplayer/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Multiplayer/scripts/PlayerNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Multiplayer/scripts/PlayerNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/3D Models/Textures/prototype_textures/Materials/carbon2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/3D Models/Textures/prototype_textures/Materials/carbon2.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Prefabs/Controller.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Prefabs/Controller.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Prefabs/Interface.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Prefabs/Interface.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/Camera/vThirdPersonCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/Camera/vThirdPersonCamera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonMotor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Controller/Scripts/CharacterController/vThirdPersonMotor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Prefab/Items/Key.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Prefab/Items/Key.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/Background.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/Background.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/InventoryItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/InventoryItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Inventory/InventoryManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Item/BatUsing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/Item/BatUsing.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/User/BatState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TalvinAsset/Scripts/User/BatState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,23 +27,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/Talvin/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache",
-      "/Users/Talvin/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache",
-      "/Users/Talvin/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/Talvin/Library/Application Support/JetBrains/Rider2022.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/Talvin/Library/Application Support/JetBrains/Rider2022.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/Talvin/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../Build - Commun.app/Contents/MacOS/SchoolLife" />
@@ -102,6 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681935381673</updated>
       <workItem from="1681935388501" duration="4579000" />
+      <workItem from="1681968471652" duration="7261000" />
     </task>
     <servers />
   </component>

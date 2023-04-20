@@ -1,13 +1,25 @@
 using System;
 using System.Collections;
+using Inventory;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using User;
 
 namespace Item
 {
     public class BatUsing : MonoBehaviour
     {
+        [HideInInspector] public InventoryItem inventoryItem;
+        private int _numberKickLeft;
+        private Image _toFill;
+
+        [SerializeField] private GameObject fillLeftKickAmountPrefab;
+
+        [SerializeField] private int numberKick;
+        [SerializeField] private BatState batState;
+        
         [SerializeField] private UserInputs userInputs;
         [SerializeField] private GameObject controller;
 
@@ -28,10 +40,30 @@ namespace Item
             if (_playerHitGameObject.TryGetComponent(out PlayerNetwork player))
             {
                 player.ChangeCanMoveCameraServerRpc((int)player.GetComponent<NetworkObject>().NetworkObjectId);
+                _numberKickLeft--;
+                UpdateFillAmount();
+
+                if (_numberKickLeft <= 0)
+                {
+                    batState.DestroyBat();
+                }
+
                 return;
             }
 
             throw new Exception();
+        }
+
+        public void InstantiateFillAmount()
+        {
+            _numberKickLeft = numberKick;
+            _toFill = Instantiate(fillLeftKickAmountPrefab, inventoryItem.transform).GetComponent<Image>();
+            _toFill.fillAmount = Mathf.InverseLerp(0, numberKick, _numberKickLeft);
+        }
+
+        private void UpdateFillAmount()
+        {
+            _toFill.fillAmount = Mathf.InverseLerp(0, numberKick, _numberKickLeft);
         }
 
         private void OnDrawGizmos()

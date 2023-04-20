@@ -547,6 +547,7 @@ MonoBehaviour:
   - {fileID: 4425428723088313502}
   - {fileID: 4568339295754106783}
   - {fileID: 2861199275834759179}
+  - {fileID: 1043650099591993537}
   interfaceCanvas: {fileID: 2988444481013223911}
   filter: {fileID: 6000672441108195231}
   doorPrefab: {fileID: 1422899132282058802, guid: a96e44ecb73024275b7bfb6a0abd35c5, type: 3}
@@ -594,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffa533e3484145d4986a7cd94ef484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 0}
   batToSet: {fileID: 9073334754314951869}
   bat: {fileID: 11400000, guid: 9049d0512829f4d5295f717ded1040e2, type: 2}
   hasBatInHand:
@@ -3628,6 +3630,8 @@ MonoBehaviour:
   mainInventory: {fileID: 1112518361056910854}
   canChangeSelectedSlot: 1
   hasSubject: 0
+  batState: {fileID: 2861199275834759179}
+  batUsing: {fileID: 1043650099591993537}
 --- !u!114 &8084230237318464399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4763,17 +4767,33 @@ PrefabInstance:
     m_TransformParent: {fileID: 4425428724247035072}
     m_Modifications:
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: batState
+      value: 
+      objectReference: {fileID: 2861199275834759179}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: controller
       value: 
       objectReference: {fileID: 4425428723088313499}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: numberKick
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: userInputs
       value: 
       objectReference: {fileID: 330633633907025339}
     - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: numberKickLeft
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: playerMask.m_Bits
       value: 768
       objectReference: {fileID: 0}
+    - target: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+      propertyPath: fillLeftKickAmountPrefab
+      value: 
+      objectReference: {fileID: 2102959409041615687, guid: 6287dcc88aa414fc19f906e100498bf6, type: 3}
     - target: {fileID: 1850600616112740, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
       propertyPath: m_Name
       value: Bat_v1_inHand
@@ -4844,6 +4864,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+--- !u!114 &1043650099591993537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -894056051643156968, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
+  m_PrefabInstance: {fileID: 9073740592088755929}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073334754314951869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c472d9411e9e4a45b4d860283db8e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9071072159079792291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4093408953815162, guid: f95e99b1aa8be4a3b9bd653646048edb, type: 3}
