@@ -4,6 +4,12 @@ namespace Invector.vCharacterController
 {
     public class vThirdPersonController : vThirdPersonAnimator
     {
+        private void Update() {
+            if (this.gameObject.layer != 0)
+            {
+                this.gameObject.layer = 0;
+            }
+        }
         public virtual void ControlAnimatorRootMotion()
         {
             if (!this.enabled) return;

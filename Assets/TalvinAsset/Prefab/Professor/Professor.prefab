@@ -229,10 +229,11 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 320
+  tpPoint: {fileID: 0}
   walkSpeed: 1
   chaseSpeed: 3
-  walkViewRadius: 4
-  chaseViewRadius: 6
+  walkViewRadius: 8
+  chaseViewRadius: 12
   walkViewAngle: 200
   chaseViewAngle: 360
   distancePlayerCatch: 1.5

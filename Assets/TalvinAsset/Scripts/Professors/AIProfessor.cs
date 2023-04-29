@@ -14,6 +14,7 @@ namespace Professors
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private LayerMask obstacleMask;
 
+
         [Header("Statistics")]
         [SerializeField] private float walkSpeed;
         [SerializeField] private float chaseSpeed;
@@ -84,6 +85,7 @@ namespace Professors
         {
             GameObject[] playersGameObject = GameObject.FindGameObjectsWithTag(PlayerTag);
         
+            Debug.Log(playersGameObject.Length);
             GameObject newPlayer = null;
             bool isCatch = false;
             bool isInView = false;
@@ -111,6 +113,7 @@ namespace Professors
                     if (Vector3.Distance(position, playerBodyPosition) < Vector3.Distance(position, newPlayer.transform.position + new Vector3(0, 1f, 0)))
                     {
                         newPlayer = playerGameObject;
+                        Debug.Log($"updated");
                     }
                 }
                 else
@@ -142,6 +145,9 @@ namespace Professors
             _viewAngle = chaseViewAngle;
             agent.speed = chaseSpeed;
             agent.isStopped = true;
+            Debug.Log("tp catch player");
+            //_player.transform.position = new Vector3(9999f,14999.22464f,-39999.47f);
+
         }
 
         private void MoveTo(Vector3 position, float viewRadius, float viewAngle, float speed)
