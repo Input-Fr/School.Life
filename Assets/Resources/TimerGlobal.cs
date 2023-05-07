@@ -9,6 +9,7 @@ public class TimerGlobal : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI textTime;
     [SerializeField] private TextMeshProUGUI textEvent;
     [SerializeField] private GameObject antiCheat;
+    [SerializeField] private GameObject txt;
     bool isNotInPause = false;
     float timeInSecMCQ = 480;
     float timeInSecPause = 60;
@@ -20,15 +21,19 @@ public class TimerGlobal : NetworkBehaviour
     [ServerRpc]
     void DesactivateDoorServerRpc(bool active)
     {
-        antiCheat.SetActive(active);
+        antiCheat.GetComponent<MeshCollider>().enabled = active;
+        antiCheat.GetComponent<MeshRenderer>().enabled = active;
+        txt.GetComponent<MeshRenderer>().enabled = active;
     }
 
 
     [ClientRpc]
     void DesactivateDoorClientRpc(bool active)
     {
-        antiCheat.GetComponent<Rigidbody>().isKinematic = true;
-        antiCheat.SetActive(active);
+        antiCheat.GetComponent<MeshCollider>().enabled = active;
+        antiCheat.GetComponent<MeshRenderer>().enabled = active;
+        txt.GetComponent<MeshRenderer>().enabled = active;
+        
     }
 
     [ClientRpc]

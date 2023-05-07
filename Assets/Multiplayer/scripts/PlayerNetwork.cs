@@ -45,8 +45,8 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
                 component.enabled = false;
             }
 
-            cam.SetActive(false);
             interfaceCanvas.SetActive(false);
+            cam.SetActive(false);
         }
     }
 
@@ -71,8 +71,8 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
         }
 
 
-        InstantiateProfessorServerRpc(-8, 0, 8);
-        InstantiateProfessorServerRpc(8, 0, -8);
+        InstantiateProfessorServerRpc(-78, 0.49f, -14.2f);
+        InstantiateProfessorServerRpc(-76, 0.49f, -12.62f);
 
         InstantiateDoorServerRpc(0,0,15);
 

@@ -22,6 +22,8 @@ public class testRelay : MonoBehaviour
     [SerializeField]private GameObject ButtonCreate;
     [SerializeField]private GameObject ButtonJoin;
     [SerializeField]private GameObject input;
+    [SerializeField]private GameObject cameraD;
+    public GameObject loadingScreen;
 
     private Lobby _connectedLobby;
     private QueryResponse _lobbies;
@@ -38,12 +40,14 @@ public class testRelay : MonoBehaviour
 
     }
 
-
+    void OnPlayerConnected() {
+        desac();
+    }
 
     async void Start()
     {
+
         // waiting for unity services to respond (await is use to not freeze the whole game while unity services is responding)
-        
         await UnityServices.InitializeAsync();
         
         AuthenticationService.Instance.SignedIn += () => {
@@ -67,11 +71,11 @@ public class testRelay : MonoBehaviour
             }
         }
         
-        
     }
 
     
- 
+    
+    
     public async void CreateLobby(string code)
     {
         try{
@@ -108,11 +112,10 @@ public class testRelay : MonoBehaviour
             alloc.Key,
             alloc.ConnectionData
         );
-
         NetworkManager.Singleton.StartHost();
         //
         CreateLobby(joinCode);
-
+        OnPlayerConnected();
 
         }catch (RelayServiceException error) {
             Debug.Log(error);
@@ -138,6 +141,13 @@ public class testRelay : MonoBehaviour
         keepLobbyAlive();
     }
 
+    public void desac()
+    {
+        loadingScreen.SetActive(false);
+        cameraD.SetActive(false);
+    }
+
+    
     public async void JoinRelay(string joinCode)
     {
         try
@@ -153,14 +163,16 @@ public class testRelay : MonoBehaviour
                 joinAllocation.HostConnectionData
         );
         NetworkManager.Singleton.StartClient();
+        OnPlayerConnected();
         }catch
         {
+            CreateRelay();
             Panel.SetActive(false);
             ButtonCreate.SetActive(false);
             ButtonJoin.SetActive(false);
             input.SetActive(false);
-            CreateRelay();
         }
+        
 
         
 
@@ -181,6 +193,9 @@ public class testRelay : MonoBehaviour
         }
     }
 
+
+    
+
     public async void QuickJoinLobby() {
         try{
             Lobby currentLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
@@ -190,15 +205,14 @@ public class testRelay : MonoBehaviour
             ButtonCreate.SetActive(false);
             ButtonJoin.SetActive(false);
             input.SetActive(false);
-
         }catch
         {
             // turn off : the panel, the buttons and the input
+            CreateRelay();
             Panel.SetActive(false);
             ButtonCreate.SetActive(false);
             ButtonJoin.SetActive(false);
             input.SetActive(false);
-            CreateRelay();
         }
     }
 }
