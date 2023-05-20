@@ -80,6 +80,7 @@ namespace StarterAssets
         private float _cinemachineTargetPitch;
 
         // player
+        public bool canOnlyWalk;
         private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;

@@ -12,6 +12,9 @@ TagManager:
   - Professor
   - Platform
   - Button
+  - TaskS
+  - txtInteraction
+  - subPlayer
   layers:
   - Default
   - TransparentFX

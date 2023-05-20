@@ -7,14 +7,14 @@ using Unity.Netcode;
 using TMPro;
 using System;
 using Door;
-using Invector.vCharacterController;
-
+using StarterAssets;
 public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais avec des feature multi en plus
 {
     private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1);
 
     private BatState batstate;
     bool isHere = false;
+    public bool localPlayer;
     [SerializeField] private Transform spawnedObjectPrefab;
     [SerializeField] private GameObject professorPrefab;
     [SerializeField] private GameObject cam;
@@ -25,7 +25,7 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
     [SerializeField] private GameObject doorPrefab;
     NavMeshSurface _surface;
     private void Start() {
-
+        localPlayer = IsLocalPlayer;
         var objs = FindObjectsOfType<Item.Item>();
         if (IsLocalPlayer)
         {
@@ -98,7 +98,6 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             Transform spawnedObjectTransform = Instantiate(spawnedObjectPrefab);
             spawnedObjectTransform.GetComponent<NetworkObject>().Spawn(true);
         }
-
     }
 
     public void InstantiateItem(GameObject item, Vector3 pos)
@@ -145,9 +144,9 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             {
                 foreach (Transform child in transform)
                 {
-                    if (child.TryGetComponent(out vThirdPersonCamera vThirdPersonCamera) && TryGetComponent(out vThirdPersonController vThirdPersonController))
+                    if (TryGetComponent(out ThirdPersonController vThirdPersonController))
                     {
-                        StartCoroutine(ChangeCanMoveCamera(vThirdPersonCamera, vThirdPersonController));
+                        StartCoroutine(ChangeCanMoveCamera(vThirdPersonController));
                         return;
                     }
                 }
@@ -156,9 +155,8 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             }
         }
         
-        private IEnumerator ChangeCanMoveCamera(vThirdPersonCamera vThirdPersonCamera, vThirdPersonController vThirdPersonController)
+        private IEnumerator ChangeCanMoveCamera(ThirdPersonController vThirdPersonController)
         {
-            vThirdPersonCamera.canMoveCamera = false;
             vThirdPersonController.canOnlyWalk = true;
             filter.SetActive(true);
 
@@ -166,7 +164,6 @@ public class PlayerNetwork : NetworkBehaviour // NetworkBehaviour = mono mais av
             
             filter.SetActive(false);
             vThirdPersonController.canOnlyWalk = false;
-            vThirdPersonCamera.canMoveCamera = true;
         }
 }
 

@@ -11,13 +11,13 @@ namespace User
 
         protected Camera Camera;
     
-        [SerializeField] protected InventoryManager inventory;
-        [SerializeField] protected LayerMask mask;
-        [SerializeField] protected UserInputs userInputs;
-        [SerializeField] protected TextInteraction text;
+        protected InventoryManager inventory;
+        protected LayerMask mask;
+        protected UserInputs userInputs;
+        protected TextInteraction text;
 
-        [SerializeField] protected float maxDistanceInteraction;
-        [SerializeField] protected Transform currentTransform;
+        protected float maxDistanceInteraction;
+        protected Transform currentTransform;
         protected Vector3 Origin;
         protected Vector3 Direction;
 

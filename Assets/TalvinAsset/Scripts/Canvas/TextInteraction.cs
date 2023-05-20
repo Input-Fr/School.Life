@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace Canvas
 {
     public class TextInteraction : MonoBehaviour
@@ -12,13 +11,15 @@ namespace Canvas
         [SerializeField] private LayoutElement layoutElement;
         [SerializeField] private int maxCharacter = 80;
 
-        [SerializeField] private Camera cam;
+        public bool isLocalPlayer;
+        private Camera cam;
         private Vector3 _position;
     
         #endregion
 
         private void Awake()
         {
+            cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
             gameObject.SetActive(false);
         }
 

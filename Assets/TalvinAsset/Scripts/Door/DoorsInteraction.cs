@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using User;
 using Item;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Canvas;
+using Inventory;
+using System.Threading.Tasks;
+using System;
 
 namespace Door
 {
@@ -21,6 +24,9 @@ namespace Door
         private bool _isLocked;
 
         private GameObject _doorObj;
+        GameObject Player;
+        GameObject boxDeMesRoubignoles;
+
 
         #endregion
 
@@ -32,10 +38,34 @@ namespace Door
             isDetected = false;
         }
 
+        GameObject FindInActiveObjectByTag(string tag)
+        {
+            GameObject res = null;
+            Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>() as Transform[];
+            for (int i = 0; i < objs.Length; i++)
+            {
+                if (objs[i].hideFlags == HideFlags.None)
+                {
+                    if (objs[i].CompareTag(tag))
+                    {
+                        res = objs[i].gameObject;
+                    }
+                }
+            }
+            return res;
+        }
+
         protected override void Awake()
         {
+            var Players = GameObject.FindGameObjectsWithTag("subPlayer");
+            Player = Players[Players.Length-1];
+            boxDeMesRoubignoles = FindInActiveObjectByTag("txtInteraction");
+            inventory = Player.GetComponent<InventoryManager>();
+            userInputs = Player.GetComponent<UserInputs>();
+            text = boxDeMesRoubignoles.GetComponent<TextInteraction>();
             Camera = GetComponent<Camera>();
             _items = GetComponent<ItemsInteraction>();
+            currentTransform = this.transform;
         }
 
         protected override void Update()

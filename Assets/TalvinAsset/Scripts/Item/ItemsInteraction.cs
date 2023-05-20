@@ -1,20 +1,24 @@
 using UnityEngine;
 using User;
 using Door;
-using Unity.Netcode;
 using System;
 using TMPro;
 using UnityEngine.UI;
+using Canvas;
+using Inventory;
+using System.Threading.Tasks;
+
 namespace Item
 {
     public class ItemsInteraction : Detection 
     {
         #region Variables
 
-        [SerializeField] private float viewAngle;
-        [SerializeField] private LayerMask environment;        
-        public GameObject boxDeMesRoubignoles;
+        private float viewAngle;
+        private LayerMask environment;        
+        GameObject boxDeMesRoubignoles;
         DoorsInteraction _door;
+        GameObject Player;
 
         #endregion
     
@@ -26,17 +30,50 @@ namespace Item
             isDetected = false;
         }
 
-        protected override void Awake()
+        GameObject FindInActiveObjectByTag(string tag)
         {
+            GameObject res = null;
+            Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>() as Transform[];
+            for (int i = 0; i < objs.Length; i++)
+            {
+                if (objs[i].hideFlags == HideFlags.None)
+                {
+                    if (objs[i].CompareTag(tag))
+                    {
+                        res = objs[i].gameObject;
+                    }
+                }
+            }
+            return res;
+        }
+
+        protected override async void Awake()
+        {
+            var layer1 = 3;
+            var layer2 = 7;
+            var layermask1 = 1 << layer1;
+            var layermask2 = 1 << layer2;
+            environment = layermask1 | layermask2;
+            viewAngle = 30;
+            maxDistanceInteraction = 2.2f;
+            mask = 6;
+            var Players = GameObject.FindGameObjectsWithTag("subPlayer");
+            Player = Players[Players.Length-1];
+            boxDeMesRoubignoles = FindInActiveObjectByTag("txtInteraction");
+            inventory = Player.GetComponent<InventoryManager>();
+            userInputs = Player.GetComponent<UserInputs>();
+            text = boxDeMesRoubignoles.GetComponent<TextInteraction>();
             Camera = GetComponent<Camera>();
-            _door = GetComponent<DoorsInteraction>();
+            await Task.Delay(50);
+            _door = GetComponent<Door.DoorsInteraction>();
+            currentTransform = this.transform;
         }
 
         protected override void Update()
         {
+            if (_door == null || currentTransform == null) return; 
             InitialiseVariables();
             
-
             if (DetectTarget())
             {
                 ShowInformation();

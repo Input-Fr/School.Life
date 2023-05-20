@@ -2,21 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace ButtonD
+{
 public class ButtonD : MonoBehaviour
 {
     private Camera _cam;
     private GameObject _currentButton;
 
-    [SerializeField] private GameObject canvas;
-    [SerializeField] private LayerMask buttonMask;
-    [SerializeField] private LayerMask environment;
+    private GameObject canvas;
+    private LayerMask buttonMask;
+    private LayerMask environment;
 
-    [SerializeField] private float maxDistanceInteraction;
-    [SerializeField] private float viewAngle;
+    private float maxDistanceInteraction;
+    private float viewAngle;
+
+    GameObject FindInActiveObjectByTag(string tag)
+        {
+            GameObject res = null;
+            Transform[] objs = Resources.FindObjectsOfTypeAll<Transform>() as Transform[];
+            for (int i = 0; i < objs.Length; i++)
+            {
+                if (objs[i].hideFlags == HideFlags.None)
+                {
+                    if (objs[i].CompareTag(tag))
+                    {
+                        res = objs[i].gameObject;
+                    }
+                }
+            }
+            return res;
+        }
 
     private void Awake()
     {
         _cam = GetComponent<Camera>();
+        buttonMask = 5;
+        //environment = 7;
+        maxDistanceInteraction = 5;
+        viewAngle = 30;
     }
 
     private void Update()
@@ -24,6 +47,7 @@ public class ButtonD : MonoBehaviour
         _currentButton = DetectButton();
         if ((bool)_currentButton && Input.GetKeyDown(KeyCode.E))
         {
+            canvas = FindInActiveObjectByTag("TaskS");
             canvas.SetActive(true);
         }
     }
@@ -56,3 +80,5 @@ public class ButtonD : MonoBehaviour
         return null;
     }
 }
+}
+
